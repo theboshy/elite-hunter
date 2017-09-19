@@ -1,2 +1,2 @@
-# GeolocalizacionJS_GoogleMapsAPI
+# EliteHunter
 Una  integración entre el API de google maps y la geolocalizacion en js
