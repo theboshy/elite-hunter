@@ -1,8 +1,7 @@
 var imagePath = "./src/images/position_icon_nor.png";
+var API_KEY = "AIzaSyBYHaSuwXFTqBEWaxG1B8cVfpa7EhGi8e8";
 var posicion;
 $(document).ready(function initParameters() {
-    secureProtocol();
-
     //--
     var configOptions = {
         enableHighAccuracy: false,
@@ -11,44 +10,45 @@ $(document).ready(function initParameters() {
     };
 
     if (navigator.geolocation) {
+        secureProtocol();
+        initGoogleApi();
+        buffered();
         //obtiene la posicion cada ves que el esta cambia
         navigator.geolocation.watchPosition(bunnyTarget, errorsHandler, configOptions);
         //obtiene la posicion actual (al ejecutar el codigo)
-        //navigator.geolocation.watchPosition(bunnyTarget);
-        initGoogleApi();
-        buffered();
+        //navigator.geolocation.getCurrentPosition(bunnyTarget);
     } else {
         alert("su sistema no soporta geolocalizacion :/");
     }
-
-    function bunnyTarget(position) {
-        if (typeof google === "undefined") {
-            alert("Asegurese de integrar correctamente el API de google maps o revise su API_KEY");
-        } else {
-            posicion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: posicion,
-                zoom: 18
-            });
-
-            marker = new google.maps.Marker({
-                position: posicion,
-                map: map,
-                icon: imagePath,
-                title: 'su ubicacion actual'
-            });
-
-            infowindow = new google.maps.InfoWindow({
-                content: 'Lugar de caeria',
-                maxWidth: 500
-            });
-
-            addEventListeners();
-        }
-    }
-
 });
+
+function bunnyTarget(position) {
+    if (typeof google === "undefined") {
+        alert("Asegurese de integrar correctamente el API de google maps o revise su API_KEY");
+    } else {
+        posicion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: posicion,
+            zoom: 18
+        });
+
+        marker = new google.maps.Marker({
+            position: posicion,
+            map: map,
+            icon: imagePath,
+            title: 'su ubicacion actual'
+        });
+
+        infowindow = new google.maps.InfoWindow({
+            content: 'Lugar de caeria',
+            maxWidth: 500
+        });
+
+        addEventListeners();
+    }
+    reverseGeocoding(position.coords.latitude, position.coords.longitude);
+}
 
 function addEventListeners() {
     //click sobre el marcador
@@ -75,10 +75,13 @@ function secureProtocol() {
     var path = window.location.href.replace("http", "https");
     window.location.href = path.replace("8080", "8181");
 }
+function unSecureProtocol() {
+    //el reverso (luchador)
+    var path = window.location.href.replace("https", "http");
+    window.location.href = path.replace("8181", "8080");
+}
 
 function initGoogleApi() {
-    var API_KEY = "API_KEY";
-
     var referencia = $("<script>", {
         src: "https://maps.googleapis.com/maps/api/js?key=" + API_KEY,
         async: "true",
@@ -105,7 +108,6 @@ function buffered() {
             }
         }
     }
-
 }
 
 function errorsHandler(error) {
@@ -142,4 +144,44 @@ function getApiKeyFromServlet() {
     $.get("ApiKeyServlet", function (response) {
         alert("llave del api desde el servlet" + response);
     });
+}
+
+//trazar una ruta desde la ubicacion actual a la ubicacion requerida
+function setNewDestination(lati, longit) {
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+        map: map
+    });
+
+    var request = {
+        destination: new google.maps.LatLng(lati, longit),
+        origin: posicion,
+        travelMode: 'DRIVING'
+    };
+
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function (response, status) {
+        if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+        } else {
+            alert("Ocurrio un error al intentar trazar la ruta : " + response);
+        }
+    });
+}
+
+function reverseGeocoding(latitud, longitud) {
+
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitud + ',' + longitud + '&key=' + API_KEY,
+        //async: false,
+        success: function (response) {
+            var responseSources = response.results[0];
+            console.log("latitud : " + latitud + "\n longitud : " + longitud + "\n direccion fisica : " + responseSources.formatted_address +"\n pais : "+responseSources.address_components[responseSources.address_components.length-2].long_name);
+        },
+        error: function (jqXHR, exception) {
+            alert("error : " + exception);
+        }
+    });
+
 }
