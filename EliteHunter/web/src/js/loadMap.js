@@ -77,7 +77,7 @@ function secureProtocol() {
 }
 
 function initGoogleApi() {
-    var API_KEY = "AIzaSyBYHaSuwXFTqBEWaxG1B8cVfpa7EhGi8e8";
+    var API_KEY = "API_KEY";
 
     var referencia = $("<script>", {
         src: "https://maps.googleapis.com/maps/api/js?key=" + API_KEY,
