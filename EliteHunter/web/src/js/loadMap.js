@@ -177,7 +177,7 @@ function reverseGeocoding(latitud, longitud) {
         //async: false,
         success: function (response) {
             var responseSources = response.results[0];
-            console.log("latitud : " + latitud + "\n longitud : " + longitud + "\n direccion fisica : " + responseSources.formatted_address +"\n pais : "+responseSources.address_components[responseSources.address_components.length-2].long_name);
+            console.log("latitud : " + latitud + "\n longitud : " + longitud + "\n direccion fisica : " + responseSources.formatted_address +"\n pais : "+responseSources.address_components[responseSources.address_components.length-2].long_name +"\n ciudad : "+responseSources.address_components[responseSources.address_components.length-3].long_name);
         },
         error: function (jqXHR, exception) {
             alert("error : " + exception);
