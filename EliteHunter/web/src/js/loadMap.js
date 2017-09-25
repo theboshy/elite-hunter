@@ -1,5 +1,6 @@
 var imagePath = "./src/images/position_icon_nor.png";
-var API_KEY = "AIzaSyBYHaSuwXFTqBEWaxG1B8cVfpa7EhGi8e8";
+//se_supone_que_deje_de_regalar_mi_api_pero_no_puedo
+var API_KEY = "https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ES#key";
 var posicion;
 $(document).ready(function initParameters() {
     //--
