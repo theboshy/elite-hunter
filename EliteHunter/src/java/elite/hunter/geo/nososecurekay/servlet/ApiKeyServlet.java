@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ApiKeyServlet", urlPatterns = {"/ApiKeyServlet"})
 public class ApiKeyServlet extends HttpServlet {
 
-    private static final String API_KEY = "AIzaSyBYHaSuwXFTqBEWaxG1B8cVfpa7EhGi8e8";
+    private static final String API_KEY = "https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ES#key";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
