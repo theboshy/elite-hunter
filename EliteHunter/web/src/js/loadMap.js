@@ -11,9 +11,9 @@ $(document).ready(function initParameters() {
     };
 
     if (navigator.geolocation) {
-        //obtiene la posicion cada ves que el esta cambia
+        //obtiene la posicion cada ves que esta cambia
         navigator.geolocation.watchPosition(bunnyTarget, errorsHandler, configOptions);
-        //obtiene la posicion actual (al ejecutar el codigo)
+        //obtiene la posicion actual
         //navigator.geolocation.watchPosition(bunnyTarget);
         initGoogleApi();
         buffered();
@@ -63,7 +63,7 @@ function addEventListeners() {
         map.setCenter(center);
     });
 
-    //al separarse el mapa y el marcador volver al marcador
+    //al separarse el mapa y el marcador volver al marcador inicial despues de 3 s
     map.addListener('center_changed', function () {
         window.setTimeout(function () {
             map.panTo(marker.getPosition());
