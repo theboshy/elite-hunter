@@ -28,3 +28,10 @@ $ npm run start
 
 
 [ELITE HUNT](http://localhost:1010/hunt)
+
+## Actualizacion 15/06718
+Debido a que **elite hunter** se basa en el api de `google maps` y que es tuvo cambios en la politica de uso de **API_KEY** de [google](https://developers.google.com/maps/documentation/javascript/error-messages?utm_source=maps_js&utm_medium=degraded&utm_campaign=billing#api-key-and-billing-errors), el sistema de elite hunter no puede mostrar correctamente el mapa (marca de agua encima), -> un problema a solucionar. 
+
+## TODO://
+-> anadir funcionalidad de localizacion por direcciones
+
