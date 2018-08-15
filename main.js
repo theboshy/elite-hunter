@@ -1,5 +1,5 @@
 var express = require('express') , logger = require('morgan') , app = express(), path    = require("path");
-
+process.env.NODE_ENV= "development"
 app.use(logger('dev'))
 app.use("/sources/",express.static(__dirname + '/source/public/'))
 
