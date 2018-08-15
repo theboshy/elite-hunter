@@ -1,0 +1,16 @@
+{
+  "name": "elitehunter",
+  "version": "1.2.7",
+  "description": "geolocalizador (human hunt)",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "start": "node main"
+  },
+  "author": "theboshy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  }
+}

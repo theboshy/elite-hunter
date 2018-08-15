@@ -1,7 +1,7 @@
-var imagePath = "./src/images/position_icon_nor.png";
+var imagePath = "sources/images/position_icon_nor.png";
 var posicion;
 $(document).ready(function initParameters() {
-    secureProtocol();
+    //secureProtocol();
 
     //--
     var configOptions = {
@@ -77,7 +77,7 @@ function secureProtocol() {
 }
 
 function initGoogleApi() {
-    var API_KEY = "API_KEY";
+    var API_KEY = "<API_KEY>";
 
     var referencia = $("<script>", {
         src: "https://maps.googleapis.com/maps/api/js?key=" + API_KEY,
@@ -111,7 +111,7 @@ function buffered() {
 function errorsHandler(error) {
     var msg = "";
     var documentId = "image_generic";
-    var documentImage = "./src/images/errors/";
+    var documentImage = "sources/images/errors/";
     switch (error.code) {
         case 1 :
         {
