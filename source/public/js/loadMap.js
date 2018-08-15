@@ -67,7 +67,7 @@ function addEventListeners() {
     map.addListener('center_changed', function () {
         window.setTimeout(function () {
             map.panTo(marker.getPosition());
-        }, 3000);
+        }, 5000);
     });
 }
 
