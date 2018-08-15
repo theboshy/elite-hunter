@@ -73,7 +73,8 @@ function addEventListeners() {
 
 function secureProtocol() {
     var path = window.location.href.replace("http", "https");
-    window.location.href = path.replace("8080", "8181");
+    //TODO: hacerlo dinamico
+    window.location.href = path.replace("1010", "1010");
 }
 
 function initGoogleApi() {
